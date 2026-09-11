@@ -1,0 +1,30 @@
+services:
+  - type: web
+    name: discord-status-webhook
+    runtime: node
+    plan: free
+    buildCommand: npm install --omit=dev
+    startCommand: npm start
+    healthCheckPath: /health
+    autoDeployTrigger: commit
+    envVars:
+      - key: URL_WEBHOOK
+        sync: false
+      - key: UPSTASH_REDIS_REST_URL
+        sync: false
+      - key: UPSTASH_REDIS_REST_TOKEN
+        sync: false
+      - key: STATE_KEY
+        value: discord-status-webhook:state
+      - key: UPSTASH_KEEPALIVE_SECONDS
+        value: 21600
+      - key: POLL_INTERVAL_SECONDS
+        value: 15
+      - key: INCLUDE_MAINTENANCE
+        value: true
+      - key: TIME_ZONE
+        value: Asia/Bangkok
+      - key: REQUEST_TIMEOUT_SECONDS
+        value: 15
+      - key: NODE_OPTIONS
+        value: --max-old-space-size=128

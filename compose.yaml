@@ -1,0 +1,10 @@
+services:
+  discord-status-webhook:
+    build: .
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      PORT: 3000
+      NODE_OPTIONS: --max-old-space-size=128
+    ports:
+      - "3000:3000"
